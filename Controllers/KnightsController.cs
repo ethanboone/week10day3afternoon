@@ -17,6 +17,22 @@ namespace week10day3afternoon.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        public ActionResult<IEnumerable<Knight>> GetAll()
+        {
+            try
+            {
+                IEnumerable<Knight> knights = _service.GetAll();
+                return Ok(knights);
+            }
+            catch (System.Exception error)
+            {
+
+                return BadRequest(error.Message);
+            }
+        }
+
+
         [HttpPost]
         public ActionResult<Knight> Create([FromBody] Knight newKnight)
         {

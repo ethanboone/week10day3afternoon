@@ -4,9 +4,10 @@ namespace week10day3afternoon.Models
 {
     public class Knight
     {
-        public Knight(string name)
+        // public Knight(string name)
+        public Knight()
         {
-            Name = name;
+            // Name = name;
         }
 
         public int Id { get; set; }

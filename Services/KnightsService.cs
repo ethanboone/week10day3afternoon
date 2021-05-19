@@ -14,6 +14,11 @@ namespace week10day3afternoon.Services
             _repository = repository;
         }
 
+        internal IEnumerable<Knight> GetAll()
+        {
+            return _repository.GetAll();
+        }
+
         internal Knight Create(Knight newKnight)
         {
             Knight knight = _repository.Create(newKnight);

@@ -15,6 +15,12 @@ namespace week10day3afternoon.Repositories
             _db = db;
         }
 
+        internal IEnumerable<Knight> GetAll()
+        {
+            string sql = "SELECT * FROM knights";
+            return _db.Query<Knight>(sql);
+        }
+
         internal Knight Create(Knight newKnight)
         {
             string sql = @"
