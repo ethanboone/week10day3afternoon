@@ -11,6 +11,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using week10day3afternoon.Controllers;
+using week10day3afternoon.Services;
+using week10day3afternoon.Repositories;
+using MySqlConnector;
+using System.Data;
 
 namespace week10day3afternoon
 {
@@ -28,12 +33,22 @@ namespace week10day3afternoon
         {
 
             services.AddControllers();
+            services.AddTransient<KnightsService>();
+            services.AddTransient<KnightsRepository>();
+            services.AddScoped<IDbConnection>(x => CreateDbConnection());
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "week10day3afternoon", Version = "v1" });
             });
-        }
 
+        }
+        private IDbConnection CreateDbConnection()
+        {
+            string connectionString = Configuration["DB:gearhost"];
+            return new MySqlConnection(connectionString);
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

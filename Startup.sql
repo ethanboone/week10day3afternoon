@@ -1,0 +1,5 @@
+-- CREATE TABLE knights (
+--     name VARCHAR(255) NOT NULL,
+--     id int NOT NULL AUTO_INCREMENT,
+--     PRIMARY KEY (id)
+-- );
