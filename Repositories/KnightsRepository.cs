@@ -17,8 +17,14 @@ namespace week10day3afternoon.Repositories
 
         internal IEnumerable<Knight> GetAll()
         {
-            string sql = "SELECT * FROM knights";
+            string sql = "SELECT * FROM knights;";
             return _db.Query<Knight>(sql);
+        }
+
+        internal Knight GetOne(int id)
+        {
+            string sql = "SELECT * FROM knights WHERE id = @id;";
+            return _db.QueryFirstOrDefault<Knight>(sql, new { id });
         }
 
         internal Knight Create(Knight newKnight)
@@ -31,6 +37,25 @@ namespace week10day3afternoon.Repositories
             SELECT LAST_INSERT_ID();";
             newKnight.Id = _db.ExecuteScalar<int>(sql, newKnight);
             return newKnight;
+        }
+
+        internal bool Edit(Knight previous)
+        {
+            string sql = @"
+            UPDATE knights
+            SET
+                name = @Name
+            WHERE
+                id = @Id;";
+            int total = _db.Execute(sql, previous);
+            return total == 1;
+        }
+
+        internal bool Delete(int id)
+        {
+            string sql = "DELETE FROM knights WHERE id = @id LIMIT 1;";
+            int total = _db.Execute(sql, new { id });
+            return total == 1;
         }
     }
 }

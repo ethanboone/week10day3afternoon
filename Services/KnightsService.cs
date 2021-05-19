@@ -19,10 +19,33 @@ namespace week10day3afternoon.Services
             return _repository.GetAll();
         }
 
+        internal Knight GetOne(int id)
+        {
+            Knight data = _repository.GetOne(id);
+            return data;
+        }
+
         internal Knight Create(Knight newKnight)
         {
-            Knight knight = _repository.Create(newKnight);
-            return knight;
+            Knight data = _repository.Create(newKnight);
+            return data;
+        }
+
+        internal Knight Edit(Knight updated)
+        {
+            Knight previous = GetOne(updated.Id);
+            previous.Name = updated.Name.Length > 0 ? updated.Name : previous.Name;
+            if (_repository.Edit(previous))
+            {
+                return previous;
+            }
+            throw new Exception("An error has occured when retrieving the data or updating it");
+        }
+
+        internal void Delete(int id)
+        {
+            GetOne(id);
+            _repository.Delete(id);
         }
     }
 }

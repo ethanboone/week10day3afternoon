@@ -22,8 +22,8 @@ namespace week10day3afternoon.Controllers
         {
             try
             {
-                IEnumerable<Knight> knights = _service.GetAll();
-                return Ok(knights);
+                IEnumerable<Knight> data = _service.GetAll();
+                return Ok(data);
             }
             catch (System.Exception error)
             {
@@ -32,6 +32,12 @@ namespace week10day3afternoon.Controllers
             }
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<Knight> GetOne(int id)
+        {
+            Knight data = _service.GetOne(id);
+            return Ok(data);
+        }
 
         [HttpPost]
         public ActionResult<Knight> Create([FromBody] Knight newKnight)
@@ -45,6 +51,21 @@ namespace week10day3afternoon.Controllers
             {
                 return BadRequest(error.Message);
             }
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<Knight> Edit(int id, [FromBody] Knight updated)
+        {
+            updated.Id = id;
+            Knight data = _service.Edit(updated);
+            return Ok(data);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Knight> Delete(int id)
+        {
+            _service.Delete(id);
+            return Ok("Successfuly deleted");
         }
     }
 }
